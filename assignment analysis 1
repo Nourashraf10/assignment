@@ -1,0 +1,156 @@
+import time
+import matplotlib.pyplot as plt
+plt.ion()
+def power(base, exponent):
+    result = 1
+
+    for i in range(exponent):
+        result *= base
+
+    return result
+
+# Taking input from the user for base and exponent
+base = int(input("Enter the base number: "))
+exponent = int(input("Enter the exponent (a natural number): "))
+
+# Checking if the exponent is a natural number (non-negative integer)
+if exponent < 0:
+    print("Exponent should be a non-negative integer.")
+else:
+    result = power(base, exponent)
+    print(f"{base} raised to the power {exponent} is: {result}")
+
+def power(base, exponent):
+    if exponent == 0:
+        return 1
+    elif exponent % 2 == 0:
+        result = power(base, exponent // 2)
+        return result * result
+    else:
+        result = power(base, (exponent - 1) // 2)
+        return base * result * result
+
+# Taking input from the user for base and exponent
+base = int(input("Enter the base number: "))
+exponent = int(input("Enter the exponent (a natural number): "))
+
+# Checking if the exponent is a natural number (non-negative integer)
+if exponent < 0:
+    print("Exponent should be a non-negative integer.")
+else:
+    result = power(base, exponent)
+    print(f"{base} raised to the power {exponent} is: {result}")
+    
+
+# Function for power calculation using iteration
+def power_iteration(base, exponent):
+    result = 1
+    for _ in range(exponent):
+        result *= base
+    return result
+
+# Function for power calculation using divide-and-conquer
+def power_divide_conquer(base, exponent):
+    if exponent == 0:
+        return 1
+    elif exponent % 2 == 0:
+        result = power_divide_conquer(base, exponent // 2)
+        return result * result
+    else:
+        result = power_divide_conquer(base, (exponent - 1) // 2)
+        return base * result * result
+
+# Range of powers to be tested
+powers = list(range(1, 10**6, 1000))  # Adjust the step size for a larger range
+
+iteration_times = []
+divide_conquer_times = []
+
+for power in powers:
+    start_time = time.time()
+    power_iteration(2, power)  # Change the base number as needed
+    iteration_times.append(time.time() - start_time)
+
+    start_time = time.time()
+    power_divide_conquer(2, power)  # Change the base number as needed
+    divide_conquer_times.append(time.time() - start_time)
+
+# Plotting the results
+plt.figure(figsize=(10, 6))
+plt.plot(powers, iteration_times, label='Iteration Method')
+plt.plot(powers, divide_conquer_times, label='Divide & Conquer Method')
+plt.xlabel('Power Size (n)')
+plt.ylabel('Execution Time (seconds)')
+plt.title('Performance Analysis of Power Computation Algorithms')
+plt.legend()
+plt.xscale('log')  # Log scale for x-axis due to large range
+plt.yscale('log')  # Log scale for y-axis due to varying times
+plt.show()
+
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        left_half = arr[:mid]
+        right_half = arr[mid:]
+
+        merge_sort(left_half)
+        merge_sort(right_half)
+
+        i = j = k = 0
+
+        while i < len(left_half) and j < len(right_half):
+            if left_half[i] < right_half[j]:
+                arr[k] = left_half[i]
+                i += 1
+            else:
+                arr[k] = right_half[j]
+                j += 1
+            k += 1
+
+        while i < len(left_half):
+            arr[k] = left_half[i]
+            i += 1
+            k += 1
+
+        while j < len(right_half):
+            arr[k] = right_half[j]
+            j += 1
+            k += 1
+
+def binary_search(arr, target):
+    low, high = 0, len(arr) - 1
+    pairs = []
+    while low < high:
+        if arr[low] + arr[high] == target:
+            pairs.append((arr[low], arr[high]))
+        if arr[low] + arr[high] < target:
+            low += 1
+        else:
+            high -= 1
+    return pairs
+
+def find_pairs_with_sum(arr, target):
+    merge_sort(arr)
+    pairs = binary_search(arr, target)
+    return pairs
+
+# Experimental scalability analysis
+import time
+import matplotlib.pyplot as plt
+
+powers = list(range(1000, 1000000, 10000))
+times = []
+
+for n in powers:
+    test_data = list(range(n))
+    start_time = time.time()
+    find_pairs_with_sum(test_data, n)  # Looking for pairs that sum up to n
+    times.append(time.time() - start_time)
+
+plt.plot(powers, times)
+plt.xlabel('Number of Elements (n)')
+plt.ylabel('Execution Time (seconds)')
+plt.title('Scalability Analysis of Finding Pairs with Merge Sort and Binary Search')
+plt.show()
+
+
