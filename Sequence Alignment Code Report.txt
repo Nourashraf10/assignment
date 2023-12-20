@@ -1,0 +1,17 @@
+Sequence Alignment Code Report
+
+This Java code aligns gene sequences using a dynamic programming algorithm. Let's break it down:
+
+Main Method:
+
+The main method sets up gene sequences (x and y) and a scoring matrix, then finds and prints the highest-scoring alignment.
+
+findAlignment Method:
+
+This method performs dynamic programming to find the optimal alignment. It initializes a scoring array, computes scores, and traces back to construct aligned sequences.
+
+charToIndex Method:
+
+This method maps nucleotide characters to indices (0 to 4) for efficient scoring matrix access.
+
+The code performs efficient gene sequence alignment, revealing the closeness of two gene sequences. It employs dynamic programming and a mapping function for nucleotide characters.
